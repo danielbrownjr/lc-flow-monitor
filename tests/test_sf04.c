@@ -8,6 +8,7 @@ typedef struct {
     sf04_status_t write_status, read_status;
     int truncated, corrupt, invalid;
     uint8_t field;
+    unsigned fault_read; /* 0 = every read; otherwise a selected reply. */
     uint8_t commands[4][3];
     size_t lengths[4];
 } fake_t;
@@ -23,7 +24,8 @@ static sf04_status_t read_fake(void *context, uint8_t *data, size_t length, size
 {
     fake_t *f = context;
     ++f->reads;
-    if (f->read_status != SF04_OK) return f->read_status;
+    const int fault = f->fault_read == 0 || f->reads == f->fault_read;
+    if (fault && f->read_status != SF04_OK) return f->read_status;
     memset(data, 0, length);
     for (size_t i = 0; i < length / 3; ++i) {
         uint16_t word = 0;
@@ -35,8 +37,8 @@ static sf04_status_t read_fake(void *context, uint8_t *data, size_t length, size
         data[3 * i + 1] = (uint8_t)word;
         data[3 * i + 2] = sf04_crc8(data + 3 * i, 2);
     }
-    if (f->corrupt) data[length - 1] ^= 1;
-    *actual = f->truncated ? length - 1 : length;
+    if (fault && f->corrupt) data[length - 1] ^= 1;
+    *actual = fault && f->truncated ? length - 1 : length;
     return SF04_OK;
 }
 static sf04_transport_t transport(fake_t *f)
@@ -105,6 +107,15 @@ int main(void)
         const sf04_status_t expected[] = {SF04_TRUNCATED, SF04_CRC_ERROR, SF04_INVALID};
         assert(sf04_read_calibration(&bus, &cal) == expected[i] && cal.scale == 0);
     }
+    /* Failed EEPROM replies after a valid register must also invalidate output. */
+    for (unsigned i = 0; i < 5; ++i) {
+        const sf04_status_t expected[] = {SF04_NACK, SF04_TIMEOUT, SF04_BUS_ERROR, SF04_CRC_ERROR, SF04_TRUNCATED};
+        fake_t later = {.fault_read = 2, .read_status = i < 3 ? expected[i] : SF04_OK,
+                        .corrupt = i == 3, .truncated = i == 4};
+        sf04_transport_t later_bus = transport(&later);
+        cal = (sf04_calibration_t){0, 0, 5, 2116};
+        assert(sf04_read_calibration(&later_bus, &cal) == expected[i] && cal.scale == 0);
+    }
     fake_t fake = {0};
     sf04_transport_t bus = transport(&fake);
     char name[21]; uint32_t serial;
@@ -113,6 +124,8 @@ int main(void)
     assert(fake.commands[0][1] == 0x2e && fake.commands[0][2] == 0x80);
     assert(fake.commands[1][1] == 0x2f && fake.commands[1][2] == 0x80);
     fake = (fake_t){.corrupt = 1};
+    assert(sf04_read_identity(&bus, name, &serial) == SF04_CRC_ERROR && name[0] == 0 && serial == 0);
+    fake = (fake_t){.corrupt = 1, .fault_read = 2};
     assert(sf04_read_identity(&bus, name, &serial) == SF04_CRC_ERROR && name[0] == 0 && serial == 0);
     assert(sf04_read_calibration(NULL, &cal) == SF04_INVALID);
     puts("PASS: CRC, signed limits, +/- standard conversion, calibration fields 0..7, units, metadata commands, truncation, NACK, timeout, bus error, CRC failure");
