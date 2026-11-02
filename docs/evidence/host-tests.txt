@@ -1,0 +1,12 @@
+[ 33%] Building C object CMakeFiles/test_sf04.dir/test_sf04.c.o
+[ 66%] Building C object CMakeFiles/test_sf04.dir/Users/daniel/Documents/Projects/lc-flow-monitor/components/sf04/sf04.c.o
+[100%] Linking C executable test_sf04
+[100%] Built target test_sf04
+Test project /Users/daniel/Documents/Projects/lc-flow-monitor/build-host
+    Start 1: sf04
+1/1 Test #1: sf04 .............................   Passed    0.50 sec
+
+100% tests passed out of 1
+
+Total Test time (real) =   0.50 sec
+PASS: CRC, signed limits, +/- standard conversion, calibration fields 0..7, units, metadata commands, truncation, NACK, timeout, bus error, CRC failure

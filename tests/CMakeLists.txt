@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.16)
+project(sf04_host_tests C)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+enable_testing()
+add_executable(test_sf04 test_sf04.c ../components/sf04/sf04.c)
+target_include_directories(test_sf04 PRIVATE ../components/sf04/include)
+target_compile_options(test_sf04 PRIVATE -Wall -Wextra -Werror -Wconversion -Wshadow -Wstrict-prototypes -pedantic)
+# assert() must stay active even for Release builds.
+target_compile_options(test_sf04 PRIVATE -UNDEBUG)
+add_test(NAME sf04 COMMAND test_sf04)
