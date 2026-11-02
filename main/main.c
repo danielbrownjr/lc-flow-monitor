@@ -1,11 +1,16 @@
 #include <inttypes.h>
 #include <stdio.h>
+/* IDF 5.5.1 riscv/csr.h has an inline unsigned-long -> int conversion.
+ * Keep our strict conversion diagnostics; scope the vendor exception to headers. */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-conversion"
 #include "driver/i2c.h"
 #include "esp_app_desc.h"
 #include "esp_err.h"
 #include "esp_timer.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#pragma GCC diagnostic pop
 #include "board.h"
 #include "sf04.h"
 
