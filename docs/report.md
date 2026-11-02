@@ -1,7 +1,6 @@
 # Phase 1 engineering report
 
-Date: 2026-11-01. Status: software implementation complete; target build in
-progress; sensor acceptance **not met**. Hardware execution is blocked on
+Date: 2026-11-01. Status: software implementation and verified ESP32-C5 builds complete; sensor acceptance **not met**. Hardware execution is blocked on
 verified splice and power, not by evidence of a defective sensor.
 
 ## Confirmed
@@ -25,6 +24,30 @@ verified splice and power, not by evidence of a defective sensor.
   signed extremes, positive/negative LG16 CF0 conversion, all field selectors,
   invalid calibration, truncation, NACK, timeout, bus error, metadata addressing
   and identity parsing. See `evidence/host-tests.txt`.
+
+## Target build evidence
+
+Both the default unverified configuration and an enabled **compile-only**
+configuration built successfully for ESP32-C5 with IDF v5.5.1 and GCC 14.2.0.
+The enabled configuration is a synthetic build check, not confirmation of any
+physical wiring. Its ELF retains both identity and calibration driver functions.
+Firmware source revision is `cd21bf5`; final evidence/documentation commits do
+not change that source. Binary/ELF hashes, configuration and commands are in
+`evidence/build-manifest.txt`; image metadata and complete successful build
+command outputs are alongside it. Neither image was flashed.
+
+Our components compile with Wall/Wextra/Werror/Wconversion/Wshadow and strict
+prototypes. The first target attempt exposed an IDF `riscv/csr.h:204` inline
+sign-conversion warning. A diagnostic push/pop around vendor includes excludes
+that vendor-header warning only; our source retains strict conversion checks.
+Both final builds have no compiler warnings. Host tests remain successful.
+
+QIO at 80 MHz / 16 MB matches the board JSON and detected W25Q128-class flash.
+IDF intentionally sets the image-header flash-mode string to DIO when runtime
+QIO is selected (`components/esptool_py/Kconfig.projbuild`); the DIO string in
+build output is expected. Flash timing on this physical board is not tested.
+The existing IDF 6.1 installation was retained; build activation used a separate
+5.5.1 checkout and Python environment.
 
 ## Implemented diagnostic behavior
 

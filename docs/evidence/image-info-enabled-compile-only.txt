@@ -1,0 +1,46 @@
+esptool.py v4.12.0
+File size: 219920 (bytes)
+
+ESP32C5 image header
+====================
+Image version: 1
+Entry point: 0x408002b2
+Segments: 5
+Flash size: 16MB
+Flash freq: 80m
+Flash mode: DIO
+
+ESP32C5 extended image header
+=============================
+WP pin: 0xee (disabled)
+Flash pins drive settings: clk_drv: 0x0, q_drv: 0x0, d_drv: 0x0, cs0_drv: 0x0, hd_drv: 0x0, wp_drv: 0x0
+Chip ID: 23 (ESP32-C5)
+Minimal chip revision: v1.0, (legacy min_rev = 0)
+Maximal chip revision: v1.99
+
+Segments information
+====================
+Segment   Length   Load addr   File offs  Memory types
+-------  -------  ----------  ----------  ------------
+      0  0x0a9d8  0x42020020  0x00000018  DROM, IROM
+      1  0x05618  0x40800000  0x0000a9f8  DRAM, BYTE_ACCESSIBLE, IRAM
+      2  0x1c0d8  0x42000020  0x00010018  DROM, IROM
+      3  0x07e54  0x40805618  0x0002c0f8  DRAM, BYTE_ACCESSIBLE, IRAM
+      4  0x01b88  0x4080d480  0x00033f54  DRAM, BYTE_ACCESSIBLE, IRAM
+
+ESP32C5 image footer
+====================
+Checksum: 0x3b (valid)
+Validation hash: c16d8477cd6f9a95e622b62fcc36d6b1cf4ecf2f41cb916ffdec9058ab1162a5 (valid)
+
+Application information
+=======================
+Project name: lc_flow_monitor
+App version: cd21bf5
+Compile time: Nov  1 2026 20:01:23
+ELF file SHA256: f1cd597f2df010dfdaea64b716f7525a66ae454471788469d1b9c087dde11967
+ESP-IDF: v5.5.1
+Minimal eFuse block revision: 0.0
+Maximal eFuse block revision: 0.99
+MMU page size: 64 KB
+Secure version: 0
