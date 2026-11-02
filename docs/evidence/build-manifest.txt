@@ -1,0 +1,50 @@
+recorded_utc=2026-11-02T01:02:25.324370+00:00
+firmware_source_revision=cd21bf51b6f8484af6905608c1e6e404b84fcf19
+idf_release=v5.5.1
+idf_commit=fcae32885b0296b32044cb99ecbdc50d98dddb83
+compiler=esp-14.2.0_20241119 (GCC 14.2.0)
+python=3.13.18
+target_command=idf.py set-target esp32c5 (exit 0)
+default_command=idf.py build (exit 0)
+enabled_command=idf.py -B build-enabled -D SDKCONFIG=/tmp/lc-reference/sdkconfig.enabled-compile-only -D SDKCONFIG_DEFAULTS=sdkconfig.defaults;/tmp/lc-reference/enabled-compile-only.defaults -D IDF_TARGET=esp32c5 build (exit 0)
+enabled_config=COMPILE ONLY, NOT PHYSICAL VERIFICATION: LC_HARDWARE_VERIFIED=y, SDA=11, SCL=12
+flash_executed=NO
+sensor_transactions_executed=NO
+build/lc_flow_monitor.bin bytes=194928 sha256=363f25df99adb0cb321f7da01e1d2ecaa439af44778455601fc75d2943b0410b
+build/lc_flow_monitor.elf bytes=3697708 sha256=378211918d52f16636187956f8482a86d08605388094cef75a4ad0fbfc1bda8e
+build: CONFIG_IDF_TARGET="esp32c5"
+build: CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+build: CONFIG_ESPTOOLPY_FLASH_SAMPLE_MODE_STR=y
+build: CONFIG_ESPTOOLPY_FLASHMODE="dio"
+build: CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
+build: CONFIG_ESPTOOLPY_FLASHFREQ="80m"
+build: CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+build: CONFIG_ESPTOOLPY_FLASHSIZE="16MB"
+build: # CONFIG_LC_HARDWARE_VERIFIED is not set
+build: CONFIG_LC_SDA_GPIO=-1
+build: CONFIG_LC_SCL_GPIO=-1
+build: # CONFIG_SPIRAM is not set
+build: CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+build: CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
+build: CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=y
+build: CONFIG_ESP_CONSOLE_UART_NUM=-1
+build: CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=3
+build-enabled/lc_flow_monitor.bin bytes=219920 sha256=e61f6afa4082b26dbdd98475a6b655d20e9310377963bcb8f35bedbeff43d71a
+build-enabled/lc_flow_monitor.elf bytes=3945540 sha256=f1cd597f2df010dfdaea64b716f7525a66ae454471788469d1b9c087dde11967
+build-enabled: CONFIG_IDF_TARGET="esp32c5"
+build-enabled: CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+build-enabled: CONFIG_ESPTOOLPY_FLASH_SAMPLE_MODE_STR=y
+build-enabled: CONFIG_ESPTOOLPY_FLASHMODE="dio"
+build-enabled: CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
+build-enabled: CONFIG_ESPTOOLPY_FLASHFREQ="80m"
+build-enabled: CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+build-enabled: CONFIG_ESPTOOLPY_FLASHSIZE="16MB"
+build-enabled: CONFIG_LC_HARDWARE_VERIFIED=y
+build-enabled: CONFIG_LC_SDA_GPIO=11
+build-enabled: CONFIG_LC_SCL_GPIO=12
+build-enabled: # CONFIG_SPIRAM is not set
+build-enabled: CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+build-enabled: CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
+build-enabled: CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=y
+build-enabled: CONFIG_ESP_CONSOLE_UART_NUM=-1
+build-enabled: CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=3

@@ -1,0 +1,16 @@
+menu "LC Flow Monitor board verification"
+config LC_HARDWARE_VERIFIED
+    bool "Splice, 5V sensor supply and 3.3V pull-ups physically verified"
+    default n
+    help
+        Enable only after verifying sensor power at its pins, common ground,
+        SDA/SCL continuity and pull-ups to 3.3V. See docs/bringup.md.
+config LC_SDA_GPIO
+    int "Verified SDA GPIO"
+    range -1 28
+    default -1
+config LC_SCL_GPIO
+    int "Verified SCL GPIO"
+    range -1 28
+    default -1
+endmenu
